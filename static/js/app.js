@@ -3,7 +3,7 @@ var tableData = data;
 //save a reference to the table body
 var tbody = d3.select("tbody");
 
-// use d3 to append one table row for each object
+// loop through and append one table row for each object
 tableData.forEach(function(sighting) {
     console.log(sighting);
     var row = tbody.append("tr");
@@ -15,4 +15,16 @@ tableData.forEach(function(sighting) {
         cell.text(value);
     });
 });
+function filterdata() {
+    //stops refresh
+    d3.event.preventDefault();
+    //get date time from filter
+    var date = d3.select("#datetime").property("value");
+    let filteredtable = tableData;
 
+    if (date) {
+        filteredtable = filteredtable.filter(function(row) {
+            return row.datetime === date;
+        })
+    }
+}
